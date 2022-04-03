@@ -384,8 +384,8 @@ public class GameController implements Initializable{
     private void redrawTable(){
         redrawDealerCards();
         redrawCards(table.getUserCards(), canvasUser);
-        dealerCountLabel.setText("Dealer : " + table.getDealerCount());
-        userCountLabel.setText("User : " + table.getUserCount());
+        dealerCountLabel.setText("Dealer : " + table.showDealerPossibleHandScore(isFinish));
+        userCountLabel.setText("User : " + table.showUserPossibleHandScore(isFinish));
         if(isFinish)
         {
             standButton.setVisible(false);
