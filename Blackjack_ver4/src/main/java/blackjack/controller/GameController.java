@@ -34,6 +34,8 @@ public class GameController implements Initializable{
     final static double WIDTH_CARD = 80.0;
     final static double HEIGHT_CARD = 113.0;
     final static double CARD_ALIGNMENT = 20.0;
+    final static int BACK_CARD_INDEX = 9;
+    final static int ANCHOR_PANE_CHILDREN_NUM = 11;
     final static String MUSIC_MAIN_THEME = "capybaranoyume.mp3";
     final static String SOUND_BUTTON_CLICK = "button_click_sound.mp3";
     final static String MUSIC_BLACKJACK = "shining_star.mp3";
@@ -48,6 +50,8 @@ public class GameController implements Initializable{
     private MediaPlayer videoPlayer;
     private MediaView videoView;
     private boolean isFinish;
+    private int xCoordinate = 290;
+    private boolean isBackCardDeleted = false;
 
     @FXML
     private AnchorPane gameLayout;
@@ -264,9 +268,15 @@ public class GameController implements Initializable{
         stopVideo();
         playMusic(MUSIC_MAIN_THEME);
         redrawTable();
+        xCoordinate = 290;
 
         if(table.getUserCount() == Table.BLACK_JACK_NUMBER){
             finishGame(GAME_RESULT.BLACK_JACK);
+        }
+
+        if (isBackCardDeleted) {
+            gameLayout.getChildren().remove(BACK_CARD_INDEX);
+            isBackCardDeleted = false;
         }
     }
 
@@ -312,9 +322,13 @@ public class GameController implements Initializable{
     }
 
     void hit(){
+        if (gameLayout.getChildren().size() == ANCHOR_PANE_CHILDREN_NUM){
+            gameLayout.getChildren().remove(BACK_CARD_INDEX);
+        }
         table.hit();
-        //playMovingCard();
+        playMovingCard();
         redrawTable();
+        isBackCardDeleted = true;
 
         final int userCount = table.getUserCount();
         if(Table.BLACK_JACK_NUMBER == userCount) {
@@ -330,10 +344,11 @@ public class GameController implements Initializable{
         ImageView imageView = new ImageView();
         imageView.setImage(img);
         TranslateTransition animation = new TranslateTransition(Duration.seconds(0.3), imageView);
-        animation.setFromY(0);
-        animation.setToY(250);
-        animation.setFromX(0);
-        animation.setToX(350);
+        animation.setFromY(14);
+        animation.setToY(234);
+        animation.setFromX(475);
+        animation.setToX(xCoordinate);
+        xCoordinate += CARD_ALIGNMENT;
         animation.setCycleCount(1);
         animation.play();
         gameLayout.getChildren().add(imageView);
