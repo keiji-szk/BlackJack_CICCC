@@ -1,8 +1,25 @@
 .label {
     -fx-font-family: Georgia;
-    -fx-font-style: italic;
     -fx-background-color: transparent;
     -fx-font-size: 24px;
+}
+
+.dealerCommand {
+    -fx-font-weight: bold;
+    -fx-text-fill: BLACK;
+}
+
+.userCommand {
+    -fx-font-weight: bold;
+    -fx-text-fill: BLACK;
+}
+
+.resultLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 42px;
+    -fx-max-height: 60px;
+    -fx-max-width: 460px;
+    /*-fx-font-style: Gill Sans;*/
 }
 
 .button {
@@ -22,7 +39,7 @@
     -fx-border-radius: 10px;
     -fx-pref-width: 900px;
     -fx-pref-height: 80px;
-    -fx-pref-rows: 12px;
 }
+
 
 

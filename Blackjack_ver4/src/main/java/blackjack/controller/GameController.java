@@ -34,7 +34,7 @@ public class GameController implements Initializable{
     final static double WIDTH_CARD = 80.0;
     final static double HEIGHT_CARD = 113.0;
     final static double CARD_ALIGNMENT = 20.0;
-    final static String MUSIC_MAIN_THEME = "capybaranoyume.mp3";
+    final static String MUSIC_MAIN_THEME = "ShotGlass.mp3";
     final static String SOUND_BUTTON_CLICK = "button_click_sound.mp3";
     final static String MUSIC_BLACKJACK = "shining_star.mp3";
     final static String MUSIC_WIN = "wintercarnival.mp3";
@@ -217,6 +217,8 @@ public class GameController implements Initializable{
         videoPlayer = new MediaPlayer(new Media(path));
         videoPlayer.setAutoPlay(true);
         videoView = new MediaView(videoPlayer);
+        videoView.setX(163);
+        videoView.setY(110);
         playFadeIn(videoView);
         gameLayout.getChildren().add(videoView);
     }
