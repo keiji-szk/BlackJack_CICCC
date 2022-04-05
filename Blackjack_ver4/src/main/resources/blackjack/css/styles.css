@@ -22,4 +22,7 @@
     -fx-border-radius: 10px;
     -fx-pref-width: 900px;
     -fx-pref-height: 80px;
+    -fx-pref-rows: 12px;
 }
+
+
