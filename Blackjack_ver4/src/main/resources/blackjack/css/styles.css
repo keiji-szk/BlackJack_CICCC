@@ -1,0 +1,25 @@
+.label {
+    -fx-font-family: Georgia;
+    -fx-font-style: italic;
+    -fx-background-color: transparent;
+    -fx-font-size: 24px;
+}
+
+.button {
+    -fx-pref-height: 50px;
+    -fx-pref-width: 130px;
+    -fx-font-family: Georgia;
+    -fx-font-style: italic;
+    -fx-text-fill: #fff;
+    -fx-font-size: 24px;
+    -fx-background-color: transparent;
+}
+
+.menuBar {
+    -fx-background-radius: 10px;
+    -fx-border-color: SILVER;
+    -fx-border-width: 5px;
+    -fx-border-radius: 10px;
+    -fx-pref-width: 900px;
+    -fx-pref-height: 80px;
+}
