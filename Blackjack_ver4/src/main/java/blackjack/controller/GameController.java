@@ -6,7 +6,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -23,8 +26,11 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.ResourceBundle;
@@ -158,7 +164,8 @@ public class GameController implements Initializable{
     }
 
     @FXML
-    void OnMouseClickedHelpButton(MouseEvent event) {
+    void OnMouseClickedHelpButton(MouseEvent event)throws IOException {
+        showHelpWindow();
     }
 
     @FXML
@@ -176,6 +183,23 @@ public class GameController implements Initializable{
         setAdjustButton(!adjust_volume_slider.isVisible());
     }
 
+    // crate help window
+    @FXML
+    public void showHelpWindow() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource( "/blackjack/help.fxml"));
+
+        Stage tableWindow = (Stage) helpButton.getScene().getWindow();
+
+        Stage helpWindow = new Stage();
+
+        helpWindow.setTitle("help");
+        helpWindow.initModality(Modality.WINDOW_MODAL);
+        helpWindow.initOwner(tableWindow);
+
+        helpWindow.setScene(new Scene(root));
+
+        helpWindow.show();
+    }
 
     void addButtonEffectEvent(Button btn){
         // When the button is pressed
@@ -356,8 +380,8 @@ public class GameController implements Initializable{
     private void redrawTable(){
         redrawDealerCards();
         redrawCards(table.getUserCards(), canvasUser);
-        dealerCountLabel.setText("Dealer : " + table.getDealerCount());
-        userCountLabel.setText("User : " + table.getUserCount());
+        dealerCountLabel.setText("Dealer : " + table.showDealerPossibleHandScore(isFinish));
+        userCountLabel.setText("User : " + table.showUserPossibleHandScore(isFinish));
         if(isFinish)
         {
             standButton.setVisible(false);
