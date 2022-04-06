@@ -41,8 +41,8 @@ public class GameController implements Initializable{
     final static double HEIGHT_CARD = 113.0;
     final static double CARD_ALIGNMENT = 20.0;
     final static String MUSIC_MAIN_THEME = "ShotGlass.mp3";
-    final static int BACK_CARD_INDEX = 9;
-    final static int ANCHOR_PANE_CHILDREN_NUM = 11;
+//    final static int BACK_CARD_INDEX = 9;
+//    final static int ANCHOR_PANE_CHILDREN_NUM = 11;
     final static String SOUND_BUTTON_CLICK = "button_click_sound.mp3";
     final static String MUSIC_BLACKJACK = "shining_star.mp3";
     final static String MUSIC_WIN = "wintercarnival.mp3";
@@ -295,10 +295,10 @@ public class GameController implements Initializable{
             finishGame(GAME_RESULT.BLACK_JACK);
         }
 
-        if (isBackCardDeleted) {
-            gameLayout.getChildren().remove(BACK_CARD_INDEX);
-            isBackCardDeleted = false;
-        }
+//        if (isBackCardDeleted) {
+//            gameLayout.getChildren().remove(BACK_CARD_INDEX);
+//            isBackCardDeleted = false;
+//        }
     }
 
     void finishGame(GAME_RESULT result){
@@ -342,11 +342,11 @@ public class GameController implements Initializable{
     }
 
     void hit(){
-        if (gameLayout.getChildren().size() == ANCHOR_PANE_CHILDREN_NUM){
-            gameLayout.getChildren().remove(BACK_CARD_INDEX);
-        }
+//        if (gameLayout.getChildren().size() == ANCHOR_PANE_CHILDREN_NUM){
+//            gameLayout.getChildren().remove(BACK_CARD_INDEX);
+//        }
         table.hit();
-        playMovingCard();
+        //playMovingCard();
         redrawTable();
         isBackCardDeleted = true;
 
