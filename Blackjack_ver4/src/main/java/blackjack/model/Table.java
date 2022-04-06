@@ -56,6 +56,14 @@ public class Table {
         return getCardsCount(dealerCards);
     }
 
+    public String showUserPossibleHandScore(Boolean isFinished){
+        return showPossibleCurrentScore(userCards,isFinished);
+    }
+
+    public String showDealerPossibleHandScore(Boolean isFinished){
+        return showPossibleCurrentScore(dealerCards,isFinished);
+    }
+
     private int getCardsCount(ArrayDeque<Card> cards){
         int ret = 0;
         int aceCount = 0;
@@ -79,4 +87,34 @@ public class Table {
 
         return ret;
     }
+    private String showPossibleCurrentScore(ArrayDeque<Card> cards, boolean isFinish){
+        int [] possibleScores = new int[2];
+
+        int aceCount = 0;
+        for(Card c : cards){
+            if(c.getRank() == RANK.ACE){
+                aceCount++;
+                continue;
+            }
+
+            possibleScores[0]+=c.getValue();
+            possibleScores[1]+=c.getValue();
+        }
+
+        if(isFinish || aceCount <=0) return Integer.toString(getCardsCount(cards));
+
+        switch(aceCount){
+            case 1:
+                possibleScores[0] += ACE_SMALL_VALUE;
+                possibleScores[1] += ACE_BIG_VALUE;
+                break;
+            case 2:
+                possibleScores[0] += ACE_SMALL_VALUE + ACE_SMALL_VALUE;
+                possibleScores[1] += ACE_SMALL_VALUE + ACE_BIG_VALUE;
+                break;
+        }
+
+        return possibleScores[1] <= BLACK_JACK_NUMBER ?  possibleScores[0] + "/" + possibleScores[1] : possibleScores[0] + "";
+    }
+
 }
