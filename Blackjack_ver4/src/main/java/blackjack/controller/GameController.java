@@ -1,6 +1,8 @@
 package blackjack.controller;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +28,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,8 +44,6 @@ public class GameController implements Initializable{
     final static double HEIGHT_CARD = 113.0;
     final static double CARD_ALIGNMENT = 20.0;
     final static String MUSIC_MAIN_THEME = "ShotGlass.mp3";
-//    final static int BACK_CARD_INDEX = 9;
-//    final static int ANCHOR_PANE_CHILDREN_NUM = 11;
     final static String SOUND_BUTTON_CLICK = "button_click_sound.mp3";
     final static String MUSIC_BLACKJACK = "shining_star.mp3";
     final static String MUSIC_WIN = "wintercarnival.mp3";
@@ -55,9 +56,10 @@ public class GameController implements Initializable{
     private MediaPlayer musicPlayer;
     private MediaPlayer videoPlayer;
     private MediaView videoView;
+    private ImageView[] animationCards = new ImageView[5];
+    private int animationCarNum;
     private boolean isFinish;
-    private int xCoordinate = 290;
-    private boolean isBackCardDeleted = false;
+    private static int xCoordinate;
 
     @FXML
     private AnchorPane gameLayout;
@@ -290,15 +292,14 @@ public class GameController implements Initializable{
         stopVideo();
         playMusic(MUSIC_MAIN_THEME);
         redrawTable();
-        xCoordinate = 290;
+        xCoordinate = 473;
         if(table.getUserCount() == Table.BLACK_JACK_NUMBER){
             finishGame(GAME_RESULT.BLACK_JACK);
         }
-
-//        if (isBackCardDeleted) {
-//            gameLayout.getChildren().remove(BACK_CARD_INDEX);
-//            isBackCardDeleted = false;
-//        }
+        for (int i = 0; i < animationCarNum; i++){
+            gameLayout.getChildren().remove(animationCards[i]);
+        }
+        animationCarNum = 0;
     }
 
     void finishGame(GAME_RESULT result){
@@ -342,13 +343,9 @@ public class GameController implements Initializable{
     }
 
     void hit(){
-//        if (gameLayout.getChildren().size() == ANCHOR_PANE_CHILDREN_NUM){
-//            gameLayout.getChildren().remove(BACK_CARD_INDEX);
-//        }
+        playMovingCard();
         table.hit();
-        //playMovingCard();
         redrawTable();
-        isBackCardDeleted = true;
 
         final int userCount = table.getUserCount();
         if(Table.BLACK_JACK_NUMBER == userCount) {
@@ -360,18 +357,30 @@ public class GameController implements Initializable{
     }
 
     void playMovingCard(){
-        Image img= new Image(getClass().getResourceAsStream("/blackjack/assets/picture/Back_card.png"), WIDTH_CARD, HEIGHT_CARD, false, false);
-        ImageView imageView = new ImageView();
-        imageView.setImage(img);
-        TranslateTransition animation = new TranslateTransition(Duration.seconds(0.3), imageView);
-        animation.setFromY(14);
-        animation.setToY(234);
-        animation.setFromX(475);
+        Image img = new Image(getClass().getResourceAsStream("/blackjack/assets/picture/Back_card.png"), WIDTH_CARD, HEIGHT_CARD, false, false);
+        animationCards[animationCarNum] = new ImageView();
+        animationCards[animationCarNum].setImage(img);
+        TranslateTransition animation = new TranslateTransition(Duration.seconds(0.3), animationCards[animationCarNum]);
+        animation.setFromY(150);
+        animation.setToY(383);
+        animation.setFromX(653);
         animation.setToX(xCoordinate);
         xCoordinate += CARD_ALIGNMENT;
         animation.setCycleCount(1);
         animation.play();
-        gameLayout.getChildren().add(imageView);
+        try{
+            Thread.sleep(100);
+        }catch (InterruptedException ignored){
+        }
+        RotateTransition rotator = new RotateTransition(Duration.millis(700), animationCards[animationCarNum]);
+        rotator.setAxis(Rotate.Y_AXIS);
+        rotator.setFromAngle(0);
+        rotator.setToAngle(270);
+        rotator.setInterpolator(Interpolator.LINEAR);
+        rotator.setCycleCount(1);
+        rotator.play();
+        gameLayout.getChildren().add(animationCards[animationCarNum]);
+        animationCarNum++;
     }
 
     void stand(){
