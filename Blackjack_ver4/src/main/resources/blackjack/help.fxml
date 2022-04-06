@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="helpLayout" prefHeight="449.0" prefWidth="717.0" style="-fx-background-color: #3F6740#3F6740;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackjack.controller.HelpController">
+   <children>
+      <Label alignment="CENTER" layoutX="208.0" prefHeight="46.0" prefWidth="301.0" text="GAME RULE" textAlignment="CENTER" textFill="#80a44c">
+         <font>
+            <Font size="31.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutY="56.0" prefHeight="395.0" prefWidth="717.0" text="1. The purpose of playing Blackjack: Beat the Dealer&#9;&#9;&#10; 1.1. How do you beat the dealer?&#9;&#9;&#10;    1) By drawing a hand value that is higher than the dealer’s hand value   &#9;&#9;&#10;    2) By the dealer drawing a hand value that goes over 21.&#9;&#9;&#10;    3) By drawing a hand value of 21 on your first two cards, when the dealer does not.&#9;&#9;&#10; 1.2. How do you lose to the dealer?&#9;&#9;&#10;    1) Your hand value exceeds 21.&#9;&#9;&#10;    2) The dealers hand has a greater value than yours at the end of the round.&#9;&#9;&#10; 1.3 How do you find a hand’s total value?&#9;&#9;&#10;    1) 2 through 10 count at face value, i.e. a 2 counts as two, a 9 counts as nine.&#9;&#9;&#10;    2) Face cards (J,Q,K) count as 10.&#9;&#9;&#10;    3) Ace can count as a 1 or an 11 depending on which value helps the hand the most.&#9;&#9;&#10;2. Playing Blackjack&#9;&#9;&#10;    1) Stand: If your first two cards are acceptable, stand and the next player moves to the dealer.&#9;&#9;&#10;    2) Hit: If you would like more cards to improve your hand total, the dealer will deal you more cards,&#10;              one at a time, until you either “bust” (go over 21) or you choose to stand. There is no limit on the &#10;              number of cards you can take (other than going over a total of 21).&#9;&#9;&#10;    3) Resign: resign the game.&#9;&#9;&#10;    4) Help: You can check how to play Blackjack" textFill="#d2f2b1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
