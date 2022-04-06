@@ -34,7 +34,7 @@ public class GameController implements Initializable{
     final static double WIDTH_CARD = 80.0;
     final static double HEIGHT_CARD = 113.0;
     final static double CARD_ALIGNMENT = 20.0;
-    final static String MUSIC_MAIN_THEME = "capybaranoyume.mp3";
+    final static String MUSIC_MAIN_THEME = "ShotGlass.mp3";
     final static String SOUND_BUTTON_CLICK = "button_click_sound.mp3";
     final static String MUSIC_BLACKJACK = "shining_star.mp3";
     final static String MUSIC_WIN = "wintercarnival.mp3";
@@ -62,10 +62,7 @@ public class GameController implements Initializable{
     private Label resultLabel;
 
     @FXML
-    private Label titleLabel;
-
-    @FXML
-    private Label descriptionLabel;
+    private ImageView resultFrame;
 
     @FXML
     private Button hitButton;
@@ -96,11 +93,11 @@ public class GameController implements Initializable{
 
     private void initializeCanvas(){
         this.canvasDealer = new Canvas(WIDTH_CARD*3, HEIGHT_CARD);
-        this.canvasDealer.setLayoutX(230);
-        this.canvasDealer.setLayoutY(14);
+        this.canvasDealer.setLayoutX(433);
+        this.canvasDealer.setLayoutY(150);
         this.canvasUser = new Canvas(WIDTH_CARD*3, HEIGHT_CARD);
-        this.canvasUser.setLayoutX(230);
-        this.canvasUser.setLayoutY(234);
+        this.canvasUser.setLayoutX(433);
+        this.canvasUser.setLayoutY(383);
         gameLayout.getChildren().addAll(this.canvasDealer, this.canvasUser);
     }
 
@@ -220,6 +217,8 @@ public class GameController implements Initializable{
         videoPlayer = new MediaPlayer(new Media(path));
         videoPlayer.setAutoPlay(true);
         videoView = new MediaView(videoPlayer);
+        videoView.setX(163);
+        videoView.setY(110);
         playFadeIn(videoView);
         gameLayout.getChildren().add(videoView);
     }
@@ -258,13 +257,11 @@ public class GameController implements Initializable{
     private void resetGame(){
         table.initialize();
         isFinish = false;
-        titleLabel.setVisible(true);
-        descriptionLabel.setVisible(true);
         resultLabel.setVisible(false);
+        resultFrame.setVisible(false);
         stopVideo();
         playMusic(MUSIC_MAIN_THEME);
         redrawTable();
-
         if(table.getUserCount() == Table.BLACK_JACK_NUMBER){
             finishGame(GAME_RESULT.BLACK_JACK);
         }
@@ -296,10 +293,9 @@ public class GameController implements Initializable{
         }
 
         isFinish = true;
-        titleLabel.setVisible(false);
-        descriptionLabel.setVisible(false);
         resultLabel.setText(resultMessage);
         resultLabel.setVisible(true);
+        resultFrame.setVisible(true);
         redrawTable();
     }
 
