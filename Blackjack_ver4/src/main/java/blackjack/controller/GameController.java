@@ -242,12 +242,11 @@ public class GameController implements Initializable{
     }
 
     private void playVideo(){
-        playMusic(MUSIC_BLACKJACK);
-        String path = getClass().getResource("/blackjack/assets/video/Fireworks.mp4").toExternalForm();
+        String path = getClass().getResource("/blackjack/assets/video/BlackJack.mp4").toExternalForm();
         videoPlayer = new MediaPlayer(new Media(path));
         videoPlayer.setAutoPlay(true);
         videoView = new MediaView(videoPlayer);
-        videoView.setX(163);
+        videoView.setX(0);
         videoView.setY(110);
         playFadeIn(videoView);
         gameLayout.getChildren().add(videoView);
